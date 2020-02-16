@@ -26,7 +26,7 @@ class VerifyCode(models.Model):
     短信验证码
     """
     code=models.CharField(max_length=10,verbose_name="验证码")
-    obile = models.CharField(max_length=11, verbose_name="电话")
+    mobile = models.CharField(max_length=11, verbose_name="电话")
     add_time=models.DateTimeField(default=datetime.now,verbose_name="添加时间")
     #datetime.now()会是这个类编译的时间
     class Meta:

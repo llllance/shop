@@ -16,7 +16,7 @@ class GoodsCategory(models.Model):
     name = models.CharField(default="",max_length=30,verbose_name="类别名",help_text="类别名")
     code = models.CharField(default="",max_length=30,verbose_name="类别代码",help_text="类别代码")
     desc = models.TextField(default="",verbose_name="类别描述",help_text="类别描述")
-    category_type = models.CharField(max_length=10,choices=CATEGORY_TYPE,verbose_name="类目级别",help_text="类目级别")
+    category_type = models.IntegerField(choices=CATEGORY_TYPE,verbose_name="类目级别",help_text="类目级别")
     parent_category = models.ForeignKey("self",null=True,blank=True,verbose_name="父类目级",help_text="父类目级",
                                       related_name="sub_cat",on_delete=models.DO_NOTHING)
     is_tab = models.BooleanField(default=False,verbose_name="是否导航",help_text="是否导航")
@@ -36,7 +36,7 @@ class GoodsCategoryBrand(models.Model):
     category = models.ForeignKey(GoodsCategory,null=True,blank=True,verbose_name="商品类目", on_delete=models.DO_NOTHING)
     name = models.CharField(default="",max_length=30,verbose_name="品牌名",help_text="品牌名")
     desc = models.TextField(default="",max_length=200,verbose_name="品牌描述",help_text="品牌描述")
-    image = models.ImageField(upload_to="brand/images/")
+    image = models.ImageField(max_length=200,upload_to="brand/images/")
     add_time = models.DateTimeField(default=datetime.now,verbose_name="添加时间")
 
     class Meta:
@@ -60,10 +60,12 @@ class Goods(models.Model):
     market_price = models.FloatField(default=0,verbose_name="市场价格")
     shop_price = models.FloatField(default=0,verbose_name="本店价格")
     goods_brief = models.TextField(max_length=500,verbose_name="商品描述")
-    goods_desc = UEditorField(verbose_name="内容",imagePath="goods/images/",width=1000,
-                              height=300,filePath="goods/files/",default='')
+
+    goods_desc = UEditorField(verbose_name=u"内容", imagePath="goods/images/", width=1000, height=300,
+                              filePath="goods/files/", default='')
+
     ship_free = models.BooleanField(default=True,verbose_name="是否承担运费")
-    goods_front_image = models.ImageField(upload_to="",null=True,blank=True,verbose_name="封面图片")
+    goods_front_image = models.ImageField(upload_to="goods/images/",null=True,blank=True,verbose_name="封面图片")
     is_new = models.BooleanField(default=False,verbose_name="是否新品")
     is_hot = models.BooleanField(default=False,verbose_name="是否热销")
     add_time = models.DateTimeField(default=datetime.now,verbose_name="添加时间")

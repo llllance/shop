@@ -36,7 +36,7 @@ class OrderInfo(models.Model):
     )
     user = models.ForeignKey(User,verbose_name="用户",on_delete=models.DO_NOTHING)
     order_sn = models.CharField(max_length=30,unique=True,verbose_name="订单号")
-    trader_no = models.CharField(max_length=100,unique=True,null=True,blank=True,verbose_name="支付订单号")
+    trade_no = models.CharField(max_length=100,unique=True,null=True,blank=True,verbose_name="支付订单号")
     pay_type = models.CharField(choices=PAY_TYPE,max_length=10,verbose_name="支付类型")
     pay_status = models.CharField(choices=ORDER_STATUS,max_length=10,verbose_name="支付状态")
     post_script = models.CharField(max_length=200,verbose_name="订单留言")
